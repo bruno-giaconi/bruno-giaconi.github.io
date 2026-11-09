@@ -41,7 +41,7 @@
           <details>
             <summary>Preuves et périmètre du test</summary>
             <p>Les onze tests automatisés couvrent les citations, les dates absentes, la revue humaine et les réponses simulées du modèle. GitHub Actions construit l’image Docker, la teste sur un cluster Kubernetes éphémère et publie le conteneur vérifié.</p>
-            <p>Un essai Azure OpenAI avec GPT‑4.1 mini et Microsoft Entra ID a également validé le parcours HTTP sur une transcription fictive.</p>
+            <p>La même image a passé le parcours HTTP dans Azure Container Instances. Elle a appelé GPT‑4.1 mini sur Azure OpenAI via une identité managée et traité une transcription fictive.</p>
             <p>Le modèle Bicep pour Azure AKS compile en ARM. L’exemple interactif affiche le résultat exporté de l’API en mode déterministe.</p>
             <p><a href="exemple-pv.json">Consulter la sortie JSON vérifiée</a></p>
             <p><a href="https://github.com/bruno-giaconi/bruno-giaconi.github.io#readme">Voir le code et le guide de reproduction sur GitHub</a></p>

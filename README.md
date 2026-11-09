@@ -75,4 +75,7 @@ docker pull ghcr.io/bruno-giaconi/releve-decisions@sha256:2a89a7c3381c92706363a5
 ## Essai Azure du 9 novembre 2026
 
 - **Azure OpenAI**. Le service FastAPI exécuté dans Cloud Shell a appelé GPT‑4.1 mini via Microsoft Entra ID. La ressource Azure était en Suisse Nord et le type de déploiement Global Standard autorise un traitement hors de cette région. La transcription était entièrement fictive. Le test HTTP a confirmé trois sources exactes, une échéance absente laissée vide et une approbation séparée. Le groupe de ressources d’essai a été supprimé.
+- **Azure Container Instances**. La même image GHCR, épinglée à son digest, a démarré en Suisse Nord sans IP publique. Son identité managée a reçu le rôle d’inférence à la portée de la seule ressource Azure OpenAI d’essai. L’API a exécuté le même parcours HTTP avec une inférence réelle et le conteneur s’est terminé avec le code 0.
 - **Azure AKS**. Le contrôle de l’abonnement d’essai a relevé quatre vCPU disponibles en Suisse Nord, France Centre et Europe Ouest. Le modèle Bicep à deux nœuds exige huit vCPU. La validation Kubernetes du pipeline porte sur le cluster éphémère kind.
+
+Le portfolio public reste une page GitHub Pages. L’API et le modèle sont destinés à une démonstration Azure à la demande, avec des données fictives. Le [guide AKS](infra/README.md) décrit le préflight et le test une fois les quotas disponibles.
