@@ -6,6 +6,20 @@ permissions:
   contents: read
 
 jobs:
+  bicep:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compiler le modèle Bicep sans créer de ressources
+        run: |
+          bicep="$RUNNER_TEMP/bicep"
+          curl --fail --location --silent --show-error --retry 2 --output "$bicep" \
+            https://github.com/Azure/bicep/releases/download/v0.48.1/bicep-linux-x64
+          printf '%s  %s\n' b09ec25a9d376c1f8e33ede6ed22b587f915ad68488d5db77a6f9541748c7f6e "$bicep" \
+            | sha256sum --check --strict
+          chmod +x "$bicep"
+          "$bicep" build --no-restore infra/aks-dev.bicep --outfile "$RUNNER_TEMP/aks-dev.arm.json"
   smoke:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
