@@ -63,6 +63,8 @@ h2 { font-size: clamp(2.6rem, 4.2vw, 4.45rem); }
 .stack li { border: 1px solid var(--rule); border-radius: 2rem; padding: .1rem .59rem; font-size: .75rem; }
 details { border-top: 1px solid var(--rule); padding: .65rem 0 0; font-size: .89rem; }
 details summary { cursor: pointer; font-weight: 650; }
+.proof { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem .65rem; margin: 0 0 .85rem; font-size: .83rem; }
+.proof-status { border-radius: .3rem; background: #e1ebdf; color: #264f3a; padding: .12rem .43rem; font-weight: 700; }
 .visual { min-width: 0; margin: 0; border-radius: .9rem; padding: clamp(.95rem, 3vw, 1.7rem); }
 .visual-label { margin: 0 0 1.05rem; }
 .prince, .audio { background: var(--forest); color: var(--light); }

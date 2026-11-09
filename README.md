@@ -43,7 +43,7 @@ Lancer `python scripts/smoke.py` dans un second terminal. À la fin, arrêter la
 
 - Six tests locaux passent sur FastAPI et LangGraph. Le scénario HTTP complet a aussi été exécuté sur un serveur Uvicorn temporaire sur la boucle locale. Ils couvrent la fidélité des citations, les dates explicites ou absentes, l’approbation, le rejet et le refus d’une double validation.
 - L’état est conservé en mémoire dans une seule instance. Cette version sert à l’essai local ou en cluster éphémère, sur données fictives.
-- L’image Docker, le déploiement Kubernetes et le pipeline GitHub Actions sont préparés. Leur exécution reste à vérifier. Une inférence réelle et un déploiement Azure restent des étapes séparées.
+- Le [pipeline GitHub Actions vérifié](https://github.com/bruno-giaconi/bruno-giaconi.github.io/actions/runs/42600901287) a construit l’image Docker, déployé le service sur Kubernetes avec kind et vérifié le parcours HTTP. Il a aussi compilé le modèle Bicep en ARM. Une inférence réelle et un déploiement Azure restent des étapes séparées.
 
 ## Infrastructure Azure
 

@@ -6,6 +6,7 @@
   <meta name="description" content="Bruno Giaconi, développeur d’applications métier et de solutions d’IA. Projets, choix techniques et démonstrations.">
   <meta name="theme-color" content="#f7f5ef">
   <title>Bruno Giaconi — Portfolio technique</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="portfolio.css">
   <script defer src="portfolio.js"></script>
 </head>
@@ -18,7 +19,7 @@
   <main class="shell">
     <section class="intro" aria-labelledby="titre">
       <p class="eyebrow"><span></span> PORTFOLIO TECHNIQUE · MEYRIN, SUISSE</p>
-      <h1 id="titre">Applications métier<br>et développement IA<span>.</span></h1>
+      <h1 id="titre">Applications métier<br> et développement IA<span>.</span></h1>
       <p class="lede">Je développe des outils qui s’intègrent au travail des équipes. Explorez un workflow de comptes rendus, une application de pilotage, un processeur audio et un configurateur 3D.</p>
       <nav class="jump" aria-label="Accès rapide aux projets">
         <a href="#pv">Comptes rendus</a><a href="#prince">Prince 2 PM</a><a href="#myconf">MyConf</a><a href="#reno">Reno</a>
@@ -33,9 +34,14 @@
           <p class="summary">Transformer une transcription en un brouillon de décisions et d’actions dont on peut vérifier les sources.</p>
           <p>Le workflow vérifie la citation de chaque élément et suspend le traitement jusqu’à la validation humaine. Le test reproductible utilise une réunion fictive et une extraction déterministe.</p>
           <ul class="stack" aria-label="Technologies"><li>Python</li><li>FastAPI</li><li>LangGraph</li></ul>
+          <div class="proof">
+            <span class="proof-status">Pipeline vérifié</span>
+            <a href="https://github.com/bruno-giaconi/bruno-giaconi.github.io/actions/runs/42600901287">Tests, Docker et Kubernetes (kind) ↗</a>
+          </div>
           <details>
             <summary>Preuves et périmètre du test</summary>
-            <p>Les six tests automatisés et le parcours HTTP local couvrent les citations, les dates absentes, l’approbation et le rejet. L’exemple affiche le résultat exporté de l’API locale.</p>
+            <p>Les six tests automatisés couvrent les citations, les dates absentes et les décisions de validation. GitHub Actions construit l’image Docker, la déploie sur un cluster Kubernetes éphémère et vérifie le parcours HTTP.</p>
+            <p>Le modèle Bicep pour Azure AKS compile en ARM. Le provisionnement Azure reste à valider. L’exemple interactif affiche le résultat exporté de l’API locale.</p>
             <p><a href="exemple-pv.json">Consulter la sortie JSON vérifiée</a></p>
             <p><a href="https://github.com/bruno-giaconi/bruno-giaconi.github.io#readme">Voir le code et le guide de reproduction sur GitHub</a></p>
           </details>
