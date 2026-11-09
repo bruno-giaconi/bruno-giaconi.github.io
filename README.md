@@ -65,4 +65,9 @@ Lancer `python scripts/smoke.py` dans un second terminal. À la fin, arrêter la
 - Les tests locaux couvrent la fidélité des citations, les dates explicites ou absentes, l’approbation, le rejet et le refus d’une double validation. Le scénario HTTP complet en mode `fixture` a aussi été exécuté sur un serveur Uvicorn local.
 - Le contrat Azure Responses, le démarrage avec le SDK et le traitement des réponses inattendues ont été vérifiés localement avec des réponses simulées. L’essai contre un modèle Azure reste à effectuer.
 - L’état est conservé en mémoire dans une seule instance. Cette version sert à l’essai local ou en cluster éphémère, sur données fictives.
-- Le [pipeline de référence](https://github.com/bruno-giaconi/bruno-giaconi.github.io/actions/runs/42600901287) a construit l’image Docker, déployé le service sur Kubernetes avec kind et validé le parcours HTTP. Le [modèle Bicep](infra/aks-dev.bicep) compile en ARM avec Bicep 0.48.1. Le [mode d’emploi Azure](infra/README.md) couvre le coût et la suppression du cluster de test. Une inférence réelle et un déploiement Azure restent des étapes séparées.
+- Le [pipeline de référence](https://github.com/bruno-giaconi/bruno-giaconi.github.io/actions/runs/42602636379) a passé les onze tests, construit l’image Docker, déployé le service sur Kubernetes avec kind et validé le parcours HTTP. L’image testée est disponible publiquement dans GHCR avec la référence ci-dessous.
+- Le [modèle Bicep](infra/aks-dev.bicep) compile en ARM avec Bicep 0.48.1. Le [mode d’emploi Azure](infra/README.md) couvre le coût et la suppression du cluster de test. Une inférence réelle et un déploiement Azure restent des étapes séparées.
+
+```bash
+docker pull ghcr.io/bruno-giaconi/releve-decisions@sha256:2a89a7c3381c92706363a5817363da12b89f78e954cf5674cc8ee827cdbd4237
+```

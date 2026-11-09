@@ -36,12 +36,12 @@
           <ul class="stack" aria-label="Technologies"><li>Python</li><li>FastAPI</li><li>LangGraph</li></ul>
           <div class="proof">
             <span class="proof-status">Pipeline vérifié</span>
-            <a href="https://github.com/bruno-giaconi/bruno-giaconi.github.io/actions/runs/42600901287">Tests, Docker et Kubernetes (kind) ↗</a>
+            <a href="https://github.com/bruno-giaconi/bruno-giaconi.github.io/actions/runs/42602636379">Tests, Docker et Kubernetes (kind) ↗</a>
           </div>
           <details>
             <summary>Preuves et périmètre du test</summary>
-            <p>Les six tests automatisés couvrent les citations, les dates absentes et les décisions de validation. GitHub Actions construit l’image Docker, la déploie sur un cluster Kubernetes éphémère et vérifie le parcours HTTP.</p>
-            <p>Le modèle Bicep pour Azure AKS compile en ARM. Le provisionnement Azure reste à valider. L’exemple interactif affiche le résultat exporté de l’API locale.</p>
+            <p>Les onze tests automatisés couvrent les citations, les dates absentes, la revue humaine et les réponses simulées du modèle. GitHub Actions construit l’image Docker, la teste sur un cluster Kubernetes éphémère et publie le conteneur vérifié.</p>
+            <p>Le modèle Bicep pour Azure AKS compile en ARM. L’exemple interactif affiche le résultat exporté de l’API en mode déterministe.</p>
             <p><a href="exemple-pv.json">Consulter la sortie JSON vérifiée</a></p>
             <p><a href="https://github.com/bruno-giaconi/bruno-giaconi.github.io#readme">Voir le code et le guide de reproduction sur GitHub</a></p>
           </details>
