@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Mini-visite 3D interactive de Reno sur un plan entièrement fictif.">
+  <title>Reno — Visite 3D de démonstration</title>
+  <link rel="stylesheet" href="reno.css">
+  <script defer src="vendor/three.min.js"></script>
+  <script defer src="reno.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="back" href="../">← Portfolio technique</a>
+    <span>Bruno Giaconi</span>
+  </header>
+  <main class="layout">
+    <header class="intro">
+      <p class="eyebrow">Démonstration interactive · Plan fictif</p>
+      <h1>Reno, une visite 3D configurable</h1>
+      <p>Changez le point de vue et comparez trois finitions de sol dans le même aménagement.</p>
+    </header>
+    <section class="workbench" aria-label="Visite 3D et réglages">
+      <div class="stage" data-mode="fallback">
+        <div class="preview">
+          <svg viewBox="0 0 680 480" role="img" aria-labelledby="plan-title">
+            <title id="plan-title">Plan schématique fictif, avec salon à gauche et cuisine à droite</title>
+            <rect class="plan-ground" x="65" y="61" width="550" height="354" rx="9" />
+            <path d="M65 414V61h550v353M65 61h95m123 0h332" stroke="#263b4b" stroke-width="11" fill="none" />
+            <path d="M160 61h123" stroke="#8bacb5" stroke-width="5" />
+            <rect x="92" y="117" width="79" height="210" rx="10" fill="#647a75" />
+            <rect x="184" y="153" width="158" height="155" rx="12" fill="#e8dbbc" />
+            <rect x="221" y="189" width="86" height="60" rx="16" fill="#9f795c" />
+            <rect x="438" y="82" width="154" height="65" rx="5" fill="#53636c" />
+            <rect x="432" y="220" width="132" height="75" rx="12" fill="#b89670" />
+            <rect x="455" y="190" width="31" height="26" rx="3" fill="#697872" />
+            <rect x="511" y="190" width="31" height="26" rx="3" fill="#697872" />
+            <rect x="455" y="299" width="31" height="26" rx="3" fill="#697872" />
+            <rect x="511" y="299" width="31" height="26" rx="3" fill="#697872" />
+            <g fill="#192d3b" font-family="system-ui, sans-serif" font-size="22" font-weight="600" text-anchor="middle">
+              <text x="220" y="374">Salon</text>
+              <text x="500" y="374">Cuisine</text>
+            </g>
+          </svg>
+        </div>
+        <span class="stage-label" id="stage-label">Aperçu du plan</span>
+      </div>
+      <aside class="settings" aria-label="Commandes de la visite">
+        <div>
+          <h2 id="views-label">Point de vue</h2>
+          <div class="choices" role="group" aria-labelledby="views-label">
+            <button type="button" data-view="ensemble" aria-pressed="true" disabled>Vue d’ensemble</button>
+            <button type="button" data-view="plan" aria-pressed="false" disabled>Vue du dessus</button>
+            <button type="button" data-view="interieur" aria-pressed="false" disabled>À hauteur d’œil</button>
+          </div>
+        </div>
+        <div>
+          <h2 id="materials-label">Finition du sol</h2>
+          <div class="choices" role="group" aria-labelledby="materials-label">
+            <button type="button" data-finish="oak" aria-pressed="true"><i class="swatch oak" aria-hidden="true"></i>Chêne clair</button>
+            <button type="button" data-finish="terrazzo" aria-pressed="false"><i class="swatch terrazzo" aria-hidden="true"></i>Terrazzo</button>
+            <button type="button" data-finish="concrete" aria-pressed="false"><i class="swatch concrete" aria-hidden="true"></i>Béton ciré</button>
+          </div>
+        </div>
+        <output id="status" aria-live="polite">Finition sélectionnée · Chêne clair</output>
+        <noscript><p>Activez JavaScript pour utiliser les commandes de la démonstration.</p></noscript>
+      </aside>
+    </section>
+    <section class="notes" aria-label="À propos du projet">
+      <div>
+        <h2>Ce que j’ai développé</h2>
+        <p>Une interface de configuration qui répercute les choix de matériaux sur la scène et permet de passer du plan à la visite. Cette mini-démo présente ce principe sur un aménagement créé pour le portfolio.</p>
+      </div>
+      <p class="stack">JavaScript <span>·</span> Three.js <span>·</span> WebGL</p>
+    </section>
+  </main>
+  <footer><a href="vendor/THREE-LICENSE.txt">Licence de Three.js (MIT)</a></footer>
+</body>
+</html>
