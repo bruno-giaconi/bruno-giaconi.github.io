@@ -1,0 +1,58 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Code, architecture &amp; verification, Bruno Giaconi</title><meta name="description" content="Public source code, tests, Docker, Kubernetes and a live Azure test of Bruno Giaconi&#x27;s AI workflow."><meta name="theme-color" content="#101e37"><link rel="canonical" href="https://bruno-giaconi.github.io/en/technical-notes.html"><link rel="alternate" hreflang="fr" href="https://bruno-giaconi.github.io/preuves.html"><link rel="alternate" hreflang="en" href="https://bruno-giaconi.github.io/en/technical-notes.html"><meta property="og:type" content="website"><meta property="og:title" content="Code, architecture &amp; verification, Bruno Giaconi"><meta property="og:description" content="Public source code, tests, Docker, Kubernetes and a live Azure test of Bruno Giaconi&#x27;s AI workflow."><meta property="og:url" content="https://bruno-giaconi.github.io/en/technical-notes.html"><link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../portfolio.css"></head><body><a class="skip" href="#contenu">Skip to content</a>
+    <header class="top shell"><a class="signature" href="index.html"><span class="monogram" aria-hidden="true">BG</span>Bruno Giaconi</a>
+    <nav class="nav" aria-label="Main navigation"><a href="index.html#projets">Applications</a><a href="index.html#approche">Approach</a><a class="contact-link" href="index.html#contact">Get in touch ↗</a><span class="languages" aria-label="Website language"><a href="../preuves.html" hreflang="fr" lang="fr" title="Français">FR</a><span aria-hidden="true">/</span><a href="technical-notes.html" hreflang="en" lang="en" title="English" aria-current="page">EN</a></span></nav></header><main id="contenu" class="shell">
+  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span>Code &amp; verification</span></nav>
+  <article class="text-page">
+    <p class="eyebrow">PERSONAL PROTOTYPE · TECHNICAL DOCUMENTATION</p>
+    <h1>Make the workflow<br>verifiable.</h1>
+    <p class="lede">This decision log prototype lets you examine the full workflow, from a transcript to human approval. I built it with AI assistance to make my technical choices, source code and tests available for review.</p>
+    <p>This personal project uses an entirely fictional administrative meeting. Its code, sample data and tests let you reproduce the scenario from start to finish.</p>
+    <div class="actions">
+      <a class="button" href="https://github.com/bruno-giaconi/bruno-giaconi.github.io">Open the GitHub repository <span aria-hidden="true">↗</span></a>
+    </div>
+
+    <h2>A workflow with a human review step</h2>
+    <p>The FastAPI service receives the request and runs a LangGraph graph. In Azure OpenAI mode, the model selects passage identifiers from the transcript. The service checks those references and reconstructs the quotations from the source text.</p>
+    <p>If no deadline is given, the deadline field stays empty. Processing then pauses for a person to approve or reject the draft. The graph resumes only after that explicit decision.</p>
+    <pre class="code-block" aria-label="Processing pipeline">Fictional transcript with source references
+            ↓
+FastAPI → LangGraph workflow
+            ↓
+Deterministic extraction or Azure OpenAI
+            ↓
+Checks on references, quotations and deadlines
+            ↓
+Pause → human approval or rejection</pre>
+
+    <h2>What was verified</h2>
+    <p>The tests below were run on 9 November 2026. The links provide access to the pipeline and instructions for reproducing the results.</p>
+    <table class="technical-table">
+      <caption>Scope of prototype verification</caption>
+      <thead><tr><th scope="col">Component</th><th scope="col">Verification performed</th><th scope="col">Scope</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Workflow &amp; API</th><td>Eleven automated tests covering source quotations, missing dates, approval, rejection and unexpected model responses, among other cases.</td><td>Local tests and <a href="https://github.com/bruno-giaconi/bruno-giaconi.github.io/actions/runs/42602636379">GitHub Actions</a>.</td></tr>
+        <tr><th scope="row">Docker</th><td>Building the image used in the test, then publishing it to GitHub Container Registry.</td><td>The image is identified by its digest so the same version can be reproduced.</td></tr>
+        <tr><th scope="row">Kubernetes</th><td>Deploying to an ephemeral cluster and verifying the HTTP workflow after startup.</td><td>A <code>kind</code> cluster in the GitHub Actions pipeline.</td></tr>
+        <tr><th scope="row">Azure OpenAI</th><td>Live inference with GPT-4.1 mini, checked source references, an empty deadline when no date is given, and a separate approval step.</td><td>Microsoft Entra ID authentication, using a fictional transcript.</td></tr>
+        <tr><th scope="row">Azure Container Instances</th><td>Running the same image, calling the model and successfully completing the full HTTP workflow.</td><td>A container with no public IP address, a managed identity and a role scoped to the inference resource.</td></tr>
+        <tr><th scope="row">Bicep infrastructure</th><td>Compiling the Azure AKS template to ARM.</td><td>AKS was not deployed. The trial subscription quota was below the template's requirements.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Identity, data and test duration</h2>
+    <p>The Azure test used a managed identity for the container and an inference role scoped solely to the Azure OpenAI resource. No model API key is embedded in the public code.</p>
+    <p>The resource was located in Switzerland North. The Global Standard deployment type allows model processing outside that region, so this test does not establish that processing took place exclusively in Switzerland. It used fictional data only.</p>
+    <p>The Azure test resources were deleted after verification. The portfolio presents the architecture and verification results; it does not make any model calls.</p>
+
+    <h2>Reproduce the scenario</h2>
+    <p>The repository contains the FastAPI and LangGraph code, tests, Dockerfile, Kubernetes manifest, Bicep template and setup guide. Deterministic mode lets you get started without a model provider account or an Azure service.</p>
+    <pre class="code-block"><code>python -m pip install -r requirements-test.txt
+python -m unittest discover -s tests -v
+python -m uvicorn pv_demo.api:app --host 127.0.0.1 --port 8000</code></pre>
+    <p>In a second terminal, <code>python scripts/smoke.py</code> verifies the HTTP workflow. The <a href="https://github.com/bruno-giaconi/bruno-giaconi.github.io#readme">repository guide</a> describes the prerequisites, Docker and Kubernetes steps, and optional Azure model configuration.</p>
+    <p>The service keeps its state in memory in a single instance. It is a reproducible prototype; sustained use would require suitable persistence and access controls tailored to the deployment context, among other changes.</p>
+
+    <div class="actions"><a class="button secondary" href="projects/workflow-ia-azure.html">Back to the AI Workflow project <span aria-hidden="true">↗</span></a></div>
+  </article>
+</main>
+<footer class="footer shell"><span>Bruno Giaconi · Development &amp; AI · Meyrin, Switzerland</span></footer></body></html>

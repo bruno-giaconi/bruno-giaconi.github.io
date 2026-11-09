@@ -1,6 +1,6 @@
-<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Code, architecture &amp; vérifications — Bruno Giaconi</title><meta name="description" content="Code public, tests, Docker, Kubernetes et essai réel sur Azure du démonstrateur IA de Bruno Giaconi."><meta name="theme-color" content="#101e37"><link rel="canonical" href="https://bruno-giaconi.github.io/preuves.html"><meta property="og:type" content="website"><meta property="og:title" content="Code, architecture &amp; vérifications — Bruno Giaconi"><meta property="og:description" content="Code public, tests, Docker, Kubernetes et essai réel sur Azure du démonstrateur IA de Bruno Giaconi."><meta property="og:url" content="https://bruno-giaconi.github.io/preuves.html"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="portfolio.css"></head><body><a class="skip" href="#contenu">Aller au contenu</a>
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Code, architecture &amp; vérifications, Bruno Giaconi</title><meta name="description" content="Code public, tests, Docker, Kubernetes et essai réel sur Azure du workflow IA de Bruno Giaconi."><meta name="theme-color" content="#101e37"><link rel="canonical" href="https://bruno-giaconi.github.io/preuves.html"><link rel="alternate" hreflang="fr" href="https://bruno-giaconi.github.io/preuves.html"><link rel="alternate" hreflang="en" href="https://bruno-giaconi.github.io/en/technical-notes.html"><meta property="og:type" content="website"><meta property="og:title" content="Code, architecture &amp; vérifications, Bruno Giaconi"><meta property="og:description" content="Code public, tests, Docker, Kubernetes et essai réel sur Azure du workflow IA de Bruno Giaconi."><meta property="og:url" content="https://bruno-giaconi.github.io/preuves.html"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="portfolio.css"></head><body><a class="skip" href="#contenu">Aller au contenu</a>
     <header class="top shell"><a class="signature" href="index.html"><span class="monogram" aria-hidden="true">BG</span>Bruno Giaconi</a>
-    <nav class="nav" aria-label="Navigation principale"><a href="index.html#projets">Applications</a><a href="demos.html">Démonstrations</a><a href="index.html#approche">Approche</a><a class="contact-link" href="index.html#contact">Échangeons ↗</a></nav></header><main id="contenu" class="shell">
+    <nav class="nav" aria-label="Navigation principale"><a href="index.html#projets">Applications</a><a href="index.html#approche">Approche</a><a class="contact-link" href="index.html#contact">Échangeons ↗</a><span class="languages" aria-label="Langue du site"><a href="preuves.html" hreflang="fr" lang="fr" aria-current="page" title="Français">FR</a><span aria-hidden="true">/</span><a href="en/technical-notes.html" hreflang="en" lang="en" title="English">EN</a></span></nav></header><main id="contenu" class="shell">
   <nav class="breadcrumb" aria-label="Fil d’Ariane"><a href="index.html">Accueil</a><span aria-hidden="true">/</span><span>Code &amp; vérifications</span></nav>
   <article class="text-page">
     <p class="eyebrow">DÉMONSTRATEUR PERSONNEL · DOCUMENTATION TECHNIQUE</p>
@@ -9,7 +9,6 @@
     <p>Ce projet personnel utilise une réunion administrative entièrement fictive. Son code, son jeu de données et ses tests permettent de reproduire le scénario de bout en bout.</p>
     <div class="actions">
       <a class="button" href="https://github.com/bruno-giaconi/bruno-giaconi.github.io">Ouvrir le dépôt GitHub <span aria-hidden="true">↗</span></a>
-      <a class="button secondary" href="demos.html#pv">Explorer le résultat <span aria-hidden="true">↗</span></a>
     </div>
 
     <h2>Un workflow avec un point de contrôle humain</h2>
@@ -43,7 +42,7 @@ Suspension → approbation ou rejet humain</pre>
     <h2>Identité, données et durée de l’essai</h2>
     <p>L’essai Azure utilisait une identité managée pour le conteneur et un rôle d’inférence à la portée de la seule ressource Azure OpenAI. Aucune clé de modèle n’est intégrée au code public.</p>
     <p>La ressource était située en Suisse Nord. Le mode de déploiement Global Standard autorise un traitement du modèle hors de cette région ; cet essai ne démontre donc pas un traitement exclusivement suisse. Il utilisait uniquement des données fictives.</p>
-    <p>Les ressources Azure d’essai ont été supprimées après vérification. Le portfolio reste accessible sur GitHub Pages. Son aperçu de décisions affiche une sortie enregistrée de l’API, sans solliciter un modèle à chaque visite.</p>
+    <p>Les ressources Azure d’essai ont été supprimées après vérification. Le portfolio présente l’architecture et les résultats de ces vérifications ; il ne lance aucun appel au modèle.</p>
 
     <h2>Reproduire le scénario</h2>
     <p>Le dépôt fournit le code FastAPI et LangGraph, les tests, le Dockerfile, le manifeste Kubernetes, le modèle Bicep et le guide d’exécution. Le mode déterministe permet de commencer sans compte de modèle ni service Azure.</p>
@@ -53,10 +52,7 @@ python -m uvicorn pv_demo.api:app --host 127.0.0.1 --port 8000</code></pre>
     <p>Dans un second terminal, <code>python scripts/smoke.py</code> vérifie le parcours HTTP. Le <a href="https://github.com/bruno-giaconi/bruno-giaconi.github.io#readme">guide du dépôt</a> détaille les prérequis, les étapes Docker/Kubernetes et l’activation facultative du modèle Azure.</p>
     <p>Le service conserve son état en mémoire dans une seule instance. C’est un démonstrateur reproductible ; une exploitation durable demanderait notamment une persistance adaptée et une gestion des accès propre à son contexte d’utilisation.</p>
 
-    <h2>Comprendre les autres démonstrations</h2>
-    <p>Les fiches du portfolio montrent le besoin, les fonctions et ma contribution à chaque projet. Les captures présentent les interfaces des applications ; les exemples interactifs publics utilisent des données fictives.</p>
-    <p>Le test MyConf exécute le processeur audio sur un signal synthétique. La scène Reno permet de manipuler une visite 3D. L’aperçu Prince 2 PM reconstitue quelques interactions du parcours. Ces démonstrations complètent les études de cas, avec leur périmètre précisé sur chaque page.</p>
-    <div class="actions"><a class="button secondary" href="index.html#projets">Toutes les réalisations <span aria-hidden="true">↗</span></a><a class="button secondary" href="mailto:bgia01@gmail.com">Échanger sur l’architecture <span aria-hidden="true">↗</span></a></div>
+    <div class="actions"><a class="button secondary" href="projets/workflow-ia-azure.html">Retour au projet Workflow IA <span aria-hidden="true">↗</span></a></div>
   </article>
 </main>
-<footer class="footer shell"><span>Bruno Giaconi · Développement & IA · Meyrin, Suisse</span><nav aria-label="Liens de pied de page"><a href="preuves.html">Code & vérifications</a><a href="https://github.com/bruno-giaconi/bruno-giaconi.github.io">GitHub ↗</a><a href="index.html#contact">Contact</a></nav></footer></body></html>
+<footer class="footer shell"><span>Bruno Giaconi · Développement & IA · Meyrin, Suisse</span></footer></body></html>

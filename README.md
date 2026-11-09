@@ -1,15 +1,15 @@
 # Portfolio technique de Bruno Giaconi
 
-Le [portfolio](https://bruno-giaconi.github.io/) présente quatre applications personnelles, leur fonctionnement, leurs atouts et leurs démonstrations. Le site est servi depuis `docs/`. Ce dépôt contient également l’API du relevé de décisions, son workflow, ses tests et son scénario reproductible.
+Le [portfolio](https://bruno-giaconi.github.io/) présente quatre applications personnelles, leur fonctionnement, leurs atouts et des captures réelles. Chaque fiche est disponible en français et en anglais. Le site est servi depuis `docs/`. Ce dépôt contient également l’API du relevé de décisions, son workflow, ses tests et son scénario reproductible.
 
 ## Découvrir les applications
 
-- [Reno](https://bruno-giaconi.github.io/projets/reno.html) — du plan 2D à la visite 3D, captures de l’application, exemples avant/après de rendus IA et plans PDF issus de l’outil.
-- [Prince 2 PM](https://bruno-giaconi.github.io/projets/prince-2-pm.html) — parcours de pilotage, fiches reliées, dossiers PDF et consultation par MCP ; captures sur un projet fictif dans l’application locale.
-- [MyConf](https://bruno-giaconi.github.io/projets/myconf.html) — extension Chrome, sous-titres locaux et traitement audio. La chaîne téléphone/réseau reste à valider.
-- [Workflow IA](https://bruno-giaconi.github.io/projets/workflow-ia-azure.html) — décisions et actions reliées à leur source, revue humaine et déploiement vérifié sur Azure Container Instances.
+- [Reno](https://bruno-giaconi.github.io/projets/reno.html), du plan 2D à la visite 3D, rendus IA, contraintes techniques et dossiers PDF de conception et d’évacuation.
+- [Prince 2 PM](https://bruno-giaconi.github.io/projets/prince-2-pm.html), parcours de pilotage, fiches reliées, dossiers PDF et consultation par MCP ; captures sur un projet fictif dans l’application locale.
+- [MyConf](https://bruno-giaconi.github.io/projets/myconf.html), traduction de conférence via ChatGPT Voice, écoute par QR et relais sans API de traduction supplémentaire. Validation complète en conditions de conférence à poursuivre.
+- [Workflow IA](https://bruno-giaconi.github.io/projets/workflow-ia-azure.html), prototype technique personnel récent : décisions et actions reliées à leur source, revue humaine et déploiement de test vérifié sur Azure Container Instances.
 
-Les captures et exports proviennent des applications. Les légendes distinguent les aperçus, les variantes de démonstration et les rendus IA. Les exemples interactifs de la page de démonstration ont un périmètre plus restreint que les applications présentées.
+Les captures et exports proviennent des applications. Les légendes précisent les variantes de conception, les données fictives et les rendus IA. Les anciennes démonstrations simplifiées ont été retirées ; leurs adresses renvoient vers les fiches des applications.
 
 ## Relevé de décisions
 
