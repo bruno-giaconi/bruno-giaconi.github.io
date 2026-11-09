@@ -39,8 +39,8 @@
     renderer.domElement.setAttribute('aria-label', 'Visite 3D du salon et de la cuisine sur un plan fictif');
 
     const room = new T.Scene();
-    room.background = new T.Color('#dfe9e7');
-    room.add(new T.HemisphereLight('#f8fffd', '#8c9a92', 2.1));
+    room.background = new T.Color('#eef1f7');
+    room.add(new T.HemisphereLight('#ffffff', '#939bb0', 2.1));
     const sun = new T.DirectionalLight('#fff2d6', 2.25);
     sun.position.set(2.5, 8.5, 5.5);
     sun.castShadow = true;
@@ -52,11 +52,11 @@
 
     const standard = (color, roughness = .76) => new T.MeshStandardMaterial({ color, roughness });
     const palette = {
-      walls: standard('#eee9df'), base: standard('#455954'), trim: standard('#e0d8c8'),
-      cloth: standard('#637f75'), pillow: standard('#aebdaa'), rug: standard('#d7caac'),
+      walls: standard('#eee9df'), base: standard('#354765'), trim: standard('#e0d8c8'),
+      cloth: standard('#5b6f97'), pillow: standard('#a8b7d4'), rug: standard('#d7caac'),
       wood: standard('#ac7750'), cabinet: standard('#506466'), stone: standard('#e6dcc7'),
       steel: standard('#52605c', .4), blue: standard('#88adb0'), soil: standard('#6f6450'),
-      leaf: standard('#557e59'), lightLeaf: standard('#8a9b60'), background: standard('#d2e0dc')
+      leaf: standard('#557e59'), lightLeaf: standard('#8a9b60'), background: standard('#e5e9f2')
     };
     const boxGeometry = new T.BoxGeometry();
 
