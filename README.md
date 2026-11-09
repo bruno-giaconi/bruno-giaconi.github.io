@@ -63,11 +63,16 @@ Lancer `python scripts/smoke.py` dans un second terminal. À la fin, arrêter la
 ## Périmètre vérifié
 
 - Les tests locaux couvrent la fidélité des citations, les dates explicites ou absentes, l’approbation, le rejet et le refus d’une double validation. Le scénario HTTP complet en mode `fixture` a aussi été exécuté sur un serveur Uvicorn local.
-- Le contrat Azure Responses, le démarrage avec le SDK et le traitement des réponses inattendues ont été vérifiés localement avec des réponses simulées. L’essai contre un modèle Azure reste à effectuer.
+- Le contrat Azure Responses, le démarrage avec le SDK et le traitement des réponses inattendues ont été vérifiés localement avec des réponses simulées.
 - L’état est conservé en mémoire dans une seule instance. Cette version sert à l’essai local ou en cluster éphémère, sur données fictives.
 - Le [pipeline de référence](https://github.com/bruno-giaconi/bruno-giaconi.github.io/actions/runs/42602636379) a passé les onze tests, construit l’image Docker, déployé le service sur Kubernetes avec kind et validé le parcours HTTP. L’image testée est disponible publiquement dans GHCR avec la référence ci-dessous.
-- Le [modèle Bicep](infra/aks-dev.bicep) compile en ARM avec Bicep 0.48.1. Le [mode d’emploi Azure](infra/README.md) couvre le coût et la suppression du cluster de test. Une inférence réelle et un déploiement Azure restent des étapes séparées.
+- Le [modèle Bicep](infra/aks-dev.bicep) compile en ARM avec Bicep 0.48.1. Le [mode d’emploi Azure](infra/README.md) couvre le coût et la suppression du cluster de test.
 
 ```bash
 docker pull ghcr.io/bruno-giaconi/releve-decisions@sha256:2a89a7c3381c92706363a5817363da12b89f78e954cf5674cc8ee827cdbd4237
 ```
+
+## Essai Azure du 9 novembre 2026
+
+- **Azure OpenAI**. Le service FastAPI exécuté dans Cloud Shell a appelé GPT‑4.1 mini via Microsoft Entra ID. La ressource Azure était en Suisse Nord et le type de déploiement Global Standard autorise un traitement hors de cette région. La transcription était entièrement fictive. Le test HTTP a confirmé trois sources exactes, une échéance absente laissée vide et une approbation séparée. Le groupe de ressources d’essai a été supprimé.
+- **Azure AKS**. Le contrôle de l’abonnement d’essai a relevé quatre vCPU disponibles en Suisse Nord, France Centre et Europe Ouest. Le modèle Bicep à deux nœuds exige huit vCPU. La validation Kubernetes du pipeline porte sur le cluster éphémère kind.
