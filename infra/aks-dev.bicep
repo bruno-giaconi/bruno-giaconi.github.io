@@ -38,6 +38,7 @@ resource aks 'Microsoft.ContainerService/managedClusters@2025-10-01' = {
   }
   properties: {
     dnsPrefix: '${clusterName}-${uniqueString(resourceGroup().id)}'
+    nodeResourceGroup: '${resourceGroup().name}-nodes'
     enableRBAC: true
     apiServerAccessProfile: {
       authorizedIPRanges: [
@@ -57,7 +58,7 @@ resource aks 'Microsoft.ContainerService/managedClusters@2025-10-01' = {
     agentPoolProfiles: [
       {
         name: 'system'
-        count: 1
+        count: 2
         mode: 'System'
         osType: 'Linux'
         osDiskType: 'Managed'

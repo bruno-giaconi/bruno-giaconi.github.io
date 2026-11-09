@@ -5,8 +5,9 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     LANGSMITH_TRACING=false
 
 WORKDIR /app
-COPY requirements.txt ./
-RUN python -m pip install --no-cache-dir -r requirements.txt
+ARG REQUIREMENTS_FILE=requirements.txt
+COPY requirements.txt requirements-azure.txt ./
+RUN python -m pip install --no-cache-dir -r "$REQUIREMENTS_FILE"
 
 COPY --chown=10001:10001 pv_demo ./pv_demo
 USER 10001:10001

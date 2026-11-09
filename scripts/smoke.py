@@ -5,7 +5,7 @@ import sys
 from urllib.request import Request, urlopen
 
 
-def run(base_url: str) -> None:
+def run(base_url: str, mode: str = "fixture") -> None:
     def request(path: str, method: str = "GET", payload: dict | None = None) -> dict:
         data = json.dumps(payload).encode() if payload is not None else None
         req = Request(
@@ -14,11 +14,12 @@ def run(base_url: str) -> None:
             method=method,
             headers={"Content-Type": "application/json"} if data else {},
         )
-        with urlopen(req, timeout=5) as response:
+        with urlopen(req, timeout=45 if mode == "azure_openai" else 5) as response:
             return json.load(response)
 
-    assert request("/healthz") == {"status": "ok", "mode": "fixture"}
+    assert request("/healthz") == {"status": "ok", "mode": mode}
     draft = request("/drafts", method="POST")
+    assert draft["mode"] == mode
     assert draft["status"] == "pending_review"
     assert [item["source_id"] for item in draft["items"]] == ["T02", "T03", "T04"]
     assert draft["items"][1]["due_date"] is None
@@ -30,4 +31,5 @@ def run(base_url: str) -> None:
 
 
 if __name__ == "__main__":
-    run(sys.argv[1].rstrip("/") if len(sys.argv) > 1 else "http://127.0.0.1:8000")
+    url = sys.argv[1].rstrip("/") if len(sys.argv) > 1 else "http://127.0.0.1:8000"
+    run(url, sys.argv[2] if len(sys.argv) > 2 else "fixture")

@@ -1,6 +1,12 @@
 name: Tester le démonstrateur PV
 
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+    paths-ignore:
+      - 'docs/**'
+      - 'README.md'
+  pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -37,7 +43,11 @@ jobs:
           python -m pip install -r requirements-test.txt
           python -m unittest discover -s tests -v
       - name: Construire l’image
-        run: docker build --tag pv-demo:local .
+        run: |
+          docker build --tag pv-demo:local \
+            --build-arg REQUIREMENTS_FILE=requirements-azure.txt \
+            --label "org.opencontainers.image.source=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" \
+            --label "org.opencontainers.image.revision=${GITHUB_SHA}" .
       - name: Tester le déploiement dans un cluster kind éphémère
         run: |
           kind create cluster --name pv-demo --wait 90s
@@ -48,3 +58,39 @@ jobs:
           kubectl port-forward service/pv-demo 18000:8000 > "$RUNNER_TEMP/pv-demo-forward.log" 2>&1 &
           curl --silent --show-error --fail --retry 10 --retry-connrefused --retry-delay 1 http://127.0.0.1:18000/healthz
           python scripts/smoke.py http://127.0.0.1:18000
+      - name: Conserver l’image testée pour la publication
+        if: github.repository == 'bruno-giaconi/bruno-giaconi.github.io' && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: docker save pv-demo:local | gzip -1 > "$RUNNER_TEMP/pv-demo.tar.gz"
+      - uses: actions/upload-artifact@v4
+        if: github.repository == 'bruno-giaconi/bruno-giaconi.github.io' && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        with:
+          name: pv-demo-tested-image
+          path: ${{ runner.temp }}/pv-demo.tar.gz
+          retention-days: 1
+          compression-level: 0
+  publish-image:
+    if: github.repository == 'bruno-giaconi/bruno-giaconi.github.io' && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: [smoke, bicep]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      packages: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: pv-demo-tested-image
+          path: ${{ runner.temp }}
+      - name: Publier l’image vérifiée dans GitHub Container Registry
+        env:
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          image="ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/releve-decisions"
+          tag="${image}:sha-${GITHUB_SHA}"
+          printf '%s' "$GHCR_TOKEN" | docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
+          docker load --input "$RUNNER_TEMP/pv-demo.tar.gz"
+          docker tag pv-demo:local "$tag"
+          docker push "$tag"
+          digest="$(docker buildx imagetools inspect "$tag" | awk '/^Digest:/ { print $2 }')"
+          [[ "$digest" =~ ^sha256:[0-9a-f]{64}$ ]]
+          printf 'Image de déploiement vérifiée : `%s@%s`\n' "$image" "$digest" >> "$GITHUB_STEP_SUMMARY"

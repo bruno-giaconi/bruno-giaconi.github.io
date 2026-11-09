@@ -18,6 +18,10 @@ class Item(TypedDict):
     quote: str
 
 
+class ExtractionError(RuntimeError):
+    """Échec explicite du fournisseur d’extraction, sans brouillon publiable."""
+
+
 TRANSCRIPT: list[Segment] = [
     {
         "source_id": "T01",

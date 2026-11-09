@@ -1,6 +1,7 @@
 *
 !Dockerfile
 !requirements.txt
+!requirements-azure.txt
 !pv_demo/
 !pv_demo/*.py
 pv_demo/__pycache__/
