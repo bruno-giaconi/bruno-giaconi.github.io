@@ -4,7 +4,7 @@ Le [portfolio](https://bruno-giaconi.github.io/) présente quatre applications p
 
 ## Découvrir les applications
 
-- [Reno](https://bruno-giaconi.github.io/projets/reno.html), du plan 2D à la visite 3D, rendus IA, contraintes techniques et dossiers PDF de conception et d’évacuation.
+- [reno.com](https://bruno-giaconi.github.io/projets/reno.html), du plan 2D à la visite 3D, rendus IA, contraintes techniques et dossiers PDF de conception et d’évacuation.
 - [P2PM](https://bruno-giaconi.github.io/projets/prince-2-pm.html), six étapes de pilotage inspirées de PRINCE2, registres reliés, gestion documentaire et huit formats de dossiers PDF. Neuf captures de l’application, anonymisées, retracent le parcours. Les approches Scrum, PMI et HERMES ainsi que l’adaptation à une IA locale sont présentées dans les évolutions en cours.
 - [MyConf](https://bruno-giaconi.github.io/projets/myconf.html), traduction de conférence via ChatGPT Voice, écoute par QR et relais sans API de traduction supplémentaire. Validation complète en conditions de conférence à poursuivre.
 - [Workflow IA](https://bruno-giaconi.github.io/projets/workflow-ia-azure.html), prototype technique personnel récent : décisions et actions reliées à leur source, revue humaine et déploiement de test vérifié sur Azure Container Instances.
