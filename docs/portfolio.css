@@ -42,3 +42,6 @@ img,.showcase figure,.project-shot,.plan-preview,.gallery-stage,.p2pm-hero-previ
 .showcase figure,.project-shot,.conference-showcase .project-shot,.gallery-stage,.conference-showcase{background:transparent;padding:0}
 .gallery-image-link,.gallery-thumb img{background:transparent}
 .gallery-thumb:not([aria-selected=true]){border-color:transparent;background:transparent}
+
+/* Thin navy outline requested by Bruno, without a surrounding frame. */
+.showcase img,.project-shot img,.gallery-image-link img,.gallery-thumb img,.p2pm-hero-preview img,.plan-preview,.image-preview-dialog>img{border:1px solid var(--navy)}
