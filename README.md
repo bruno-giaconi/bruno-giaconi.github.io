@@ -1,19 +1,21 @@
 # Portfolio technique de Bruno Giaconi
 
-Le [portfolio](https://bruno-giaconi.github.io/) présente quatre applications personnelles, leur fonctionnement, leurs atouts et des captures réelles. Chaque fiche est disponible en français et en anglais. Le site est servi depuis `docs/`. Ce dépôt contient également l’API du relevé de décisions, son workflow, ses tests et son scénario reproductible.
+Le [portfolio](https://bruno-giaconi.github.io/) présente cinq projets personnels, leur fonctionnement, leurs atouts et des captures réelles. Chaque fiche est disponible en français et en anglais. Le site est servi depuis `docs/`. Ce dépôt contient également l’API du relevé de décisions, son workflow, ses tests et son scénario reproductible.
 
 ## Découvrir les applications
+
+- [HubFound](https://bruno-giaconi.github.io/projets/hubfound.html), une plateforme en préversion privée pour réunir Reno et P2PM : applications Electron, services IA côté serveur, projets locaux et sauvegardes chiffrées chez Infomaniak. [English](https://bruno-giaconi.github.io/en/projects/hubfound.html). La préproduction web et la distribution Windows signée sont en préparation.
 
 - [reno.com](https://bruno-giaconi.github.io/projets/reno.html), du plan 2D à la visite 3D, rendus IA, contraintes techniques et dossiers PDF de conception et d’évacuation.
 - [P2PM](https://bruno-giaconi.github.io/projets/prince-2-pm.html), six étapes inspirées de PRINCE2, comptes personnels et droits par projet, documents et PDF personnalisés, analyse IA par API et assistance sur rendez-vous. La fiche FR/EN présente les technologies vérifiées et les jalons datés. Le bouton bêta conduit à une demande validée par Bruno, puis à 72 heures d’accès privé après activation : copie de Projet Beta, un projet supplémentaire, cinq nouveaux fichiers et une analyse avec la clé API du testeur. Les autres méthodes restent des évolutions envisagées.
 - [MyConf](https://bruno-giaconi.github.io/projets/myconf.html), traduction de conférence via ChatGPT Voice, écoute par QR et relais sans API de traduction supplémentaire. Validation complète en conditions de conférence à poursuivre.
-- [Workflow IA](https://bruno-giaconi.github.io/projets/workflow-ia-azure.html), prototype technique personnel récent : décisions et actions reliées à leur source, revue humaine et déploiement de test vérifié sur Azure Container Instances.
+- [Explorer une architecture IA sur Azure](https://bruno-giaconi.github.io/projets/workflow-ia-azure.html), un projet personnel né de l’envie de découvrir cet environnement : FastAPI, LangGraph, Azure OpenAI, conteneurs et identité managée, autour d’une réunion fictive.
 
 Les captures et exports proviennent des applications. Les légendes précisent les variantes de conception, les données fictives et les rendus IA. Les anciennes démonstrations simplifiées ont été retirées ; leurs adresses renvoient vers les fiches des applications.
 
 ## Relevé de décisions
 
-Démonstrateur personnel d’un workflow de comptes rendus sur une réunion administrative fictive. Le mode `fixture` produit un résultat déterministe à partir de passages balisés.
+J’ai choisi ce petit relevé de décisions pour explorer une architecture IA et son exécution sur Azure. Le scénario repose sur une réunion administrative fictive. Le mode `fixture` produit un résultat déterministe à partir de passages balisés.
 
 1. Le workflow LangGraph extrait les décisions et actions en conservant le passage source.
 2. Un contrôle compare chaque citation à sa source et laisse l’échéance à `null` si le passage ne fournit aucune date.
@@ -35,7 +37,7 @@ Ouvrir [l’interface d’essai de l’API](http://127.0.0.1:8000/docs). Utilise
 
 ## Inférence facultative sur Azure OpenAI
 
-Le mode `azure_openai` envoie la transcription fictive à l’API Responses v1 d’Azure OpenAI. Le modèle sélectionne des identifiants de passages au format JSON Schema strict. Le service assemble les citations et échéances à partir de la transcription locale, écarte les identifiants sans preuve et soumet le brouillon à validation humaine. [API Responses v1](https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/responses) · [Sorties structurées](https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/structured-outputs)
+Le mode `azure_openai` envoie la transcription fictive à l’API Responses v1 d’Azure OpenAI. Le modèle sélectionne des identifiants de passages au format JSON Schema strict. Le service assemble les citations et échéances à partir de la transcription locale, écarte les identifiants absents de la transcription et soumet le brouillon à validation humaine. [API Responses v1](https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/responses) · [Sorties structurées](https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/structured-outputs)
 
 Prévoir une ressource Azure OpenAI ou Foundry, un déploiement de modèle OpenAI compatible avec Responses et les sorties structurées, et le rôle `Cognitive Services OpenAI User` pour l’identité de test sur cette ressource. La configuration utilise Microsoft Entra ID. [Authentification Entra](https://learn.microsoft.com/en-us/azure/foundry/foundry-models/how-to/configure-entra-id)
 
@@ -69,7 +71,7 @@ kubectl port-forward service/pv-demo 8000:8000
 
 Lancer `python scripts/smoke.py` dans un second terminal. À la fin, arrêter la redirection de port et supprimer le cluster d’essai avec `kind delete cluster --name pv-demo`.
 
-## Périmètre vérifié
+## Fonctionnement et environnements explorés
 
 - Les tests locaux couvrent la fidélité des citations, les dates explicites ou absentes, l’approbation, le rejet et le refus d’une double validation. Le scénario HTTP complet en mode `fixture` a aussi été exécuté sur un serveur Uvicorn local.
 - Le contrat Azure Responses, le démarrage avec le SDK et le traitement des réponses inattendues ont été vérifiés localement avec des réponses simulées.
@@ -87,4 +89,4 @@ docker pull ghcr.io/bruno-giaconi/releve-decisions@sha256:2a89a7c3381c92706363a5
 - **Azure Container Instances**. La même image GHCR, épinglée à son digest, a démarré en Suisse Nord sans IP publique. Son identité managée a reçu le rôle d’inférence à la portée de la seule ressource Azure OpenAI d’essai. L’API a exécuté le même parcours HTTP avec une inférence réelle et le conteneur s’est terminé avec le code 0.
 - **Azure AKS**. Le contrôle de l’abonnement d’essai a relevé quatre vCPU disponibles en Suisse Nord, France Centre et Europe Ouest. Le modèle Bicep à deux nœuds exige huit vCPU. La validation Kubernetes du pipeline porte sur le cluster éphémère kind.
 
-Le portfolio public reste une page GitHub Pages. L’API et le modèle sont destinés à une démonstration Azure à la demande, avec des données fictives. Le [guide AKS](infra/README.md) décrit le préflight et le test une fois les quotas disponibles.
+Le portfolio public reste un site GitHub Pages. L’API et le modèle permettent de reprendre cette exploration Azure à la demande, avec des données fictives. Le [guide AKS](infra/README.md) décrit le préflight et le test une fois les quotas disponibles.

@@ -45,3 +45,7 @@ img,.showcase figure,.project-shot,.plan-preview,.gallery-stage,.p2pm-hero-previ
 
 /* Thin navy outline requested by Bruno, without a surrounding frame. */
 .showcase img,.project-shot img,.gallery-image-link img,.gallery-thumb img,.p2pm-hero-preview img,.plan-preview,.image-preview-dialog>img{border:1px solid var(--navy)}
+
+/* HubFound portfolio: real captures, thin outlines and no decorative frames. */
+.hubfound-tour{margin:0 0 60px}.hubfound-tour>p{max-width:92ch;line-height:1.8;color:var(--muted)}.hubfound-shots{display:grid;grid-template-columns:minmax(150px,215px) minmax(0,1fr);gap:40px;align-items:start;margin-top:28px}.hubfound-shots figure{margin:0}.hubfound-shots img{display:block;max-width:100%;width:100%;height:auto;border:1px solid var(--navy);box-shadow:none}.hubfound-shots a{display:block;cursor:zoom-in}.hubfound-shots figcaption{font-size:.82rem;line-height:1.7;color:var(--muted);padding-top:12px}.hubfound-product-shots{display:grid;gap:28px}.hubfound-tour h2{font-size:1.65rem}.nav{flex-wrap:wrap}.hubfound-product-shots .caption-note{margin:0}
+@media(max-width:650px){.hubfound-shots{grid-template-columns:minmax(0,1fr);gap:30px}.hubfound-catalog-shot{max-width:240px;margin-inline:auto!important}.hubfound-product-shots{gap:24px}}
